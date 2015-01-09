@@ -20,6 +20,8 @@
 ;; with your file system, like with `save-buffer'.
 ;(ido-everywhere 1)
  
+(global-linum-mode 1)
+
 ;; Emacs does not highlight a matching paren by default.
 ;; `show-paren-mode' will highlight the matching paren for the one
 ;; your point is currently on. By default, it has a slight delay.
@@ -81,18 +83,25 @@
 (package-initialize)
 
 (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-    ;; If you edit it by hand, you could mess it up, so be careful.
-     ;; Your init file should contain only one such instance.
-      ;; If there is more than one, they won't work right.
-       '(inhibit-startup-screen t)
-        '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "http://marmalade-repo.org/packages/") ("melpa" . "http://melpa.milkbox.net/packages/")))))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(inhibit-startup-screen t)
+ '(package-archives
+   (quote
+    (("gnu" . "http://elpa.gnu.org/packages/")
+     ("marmalade" . "http://marmalade-repo.org/packages/")
+     ("melpa" . "http://melpa.milkbox.net/packages/")))))
 (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-    ;; If you edit it by hand, you could mess it up, so be careful.
-     ;; Your init file should contain only one such instance.
-      ;; If there is more than one, they won't work right.
-       )
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
  
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 (global-set-key (kbd "C-x a r") 'align-regexp)
@@ -109,5 +118,34 @@
 (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
  
  
-(require 'rainbow-delimiters)
+(require 'rainbow-delimiters) 
 (global-rainbow-delimiters-mode)
+(put 'downcase-region 'disabled nil)
+
+;;relative line numbers
+
+(defvar my-linum-format-string "%3d")
+
+(add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
+
+(defun my-linum-get-format-string ()
+  (let* ((width (1+ (length (number-to-string
+                             (count-lines (point-min) (point-max))))))
+         (format (concat "%" (number-to-string width) "d")))
+    (setq my-linum-format-string format)))
+
+(defvar my-linum-current-line-number 0)
+
+(setq linum-format 'my-linum-relative-line-numbers)
+
+(defun my-linum-relative-line-numbers (line-number)
+  (let ((offset (- line-number my-linum-current-line-number)))
+    (propertize (format my-linum-format-string offset) 'face 'linum)))
+
+(defadvice linum-update (around my-linum-update)
+  (let ((my-linum-current-line-number (line-number-at-pos)))
+    ad-do-it))
+(ad-activate 'linum-update)
+
+(require 'linum-relative)
+(linum-mode 1)
