@@ -75,12 +75,14 @@
 (add-hook 'c-mode-hook 'my-c-mode-hook)
  
 (package-initialize)
-(evil-mode 1)
  
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			                          ("marmalade" . "http://marmalade-repo.org/packages/")
 						                           ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
+
+
+(evil-mode 1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -119,7 +121,7 @@
  
  
 (require 'rainbow-delimiters) 
-(global-rainbow-delimiters-mode)
+;;(global-rainbow-delimiters-mode)
 (put 'downcase-region 'disabled nil)
 
 ;;relative line numbers
@@ -149,3 +151,7 @@
 
 (require 'linum-relative)
 (linum-mode 1)
+
+(load-theme 'tango-dark t)
+(nyan-mode 1)
+
