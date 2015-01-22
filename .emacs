@@ -105,7 +105,7 @@
  ;; If there is more than one, they won't work right.
  )
  
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 (global-set-key (kbd "C-x a r") 'align-regexp)
  
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
@@ -155,3 +155,8 @@
 (load-theme 'tango-dark t)
 (nyan-mode 1)
 
+(set-frame-parameter nil 'fullscreen 'fullboth)
+
+;(require 'color-theme-solarized)
+;(load-theme 'solarized t)
+;(color-theme-solarized)
