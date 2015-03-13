@@ -1,6 +1,11 @@
 set nocompatible
 " filetype off
 
+execute pathogen#infect()
+filetype plugin indent on
+
+set shell=/bin/bash
+
 set backspace=2
 
 " set rtp+=~/.vim/bundle/vundle
@@ -12,6 +17,7 @@ set backspace=2
 filetype plugin indent on
 
 set number
+set rnu
 
 " Tab specific option
 " set tabstop=8                   "A tab is 8 spaces
@@ -24,6 +30,13 @@ set shiftround                  " Round indent to nearest shiftwidth multiple
 
 syntax enable
 set background=dark
-colorscheme solarized
 
+nmap <space> viw
 
+filetype plugin on
+
+nnoremap - ddp
+nnoremap _ ddkP
+inoremap <c-d> <esc>ddi
+inoremap <c-u> <esc>viwUvi
+nnoremap <c-u> viwUv
