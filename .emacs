@@ -1,7 +1,5 @@
 ;;;(global-set-key (kbd "C-c b") 'butterfly)
-;; This is a barebones Emacs config
  
-;; Uncomment these to remove the tool bar, menu bar, and scroll bar
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -121,10 +119,7 @@
  
  
 (require 'rainbow-delimiters) 
-;;(global-rainbow-delimiters-mode)
 (put 'downcase-region 'disabled nil)
-
-;;relative line numbers
 
 (defvar my-linum-format-string "%3d")
 
@@ -155,8 +150,5 @@
 (load-theme 'tango-dark t)
 (nyan-mode 1)
 
-(set-frame-parameter nil 'fullscreen 'fullboth)
-
-;(require 'color-theme-solarized)
-;(load-theme 'solarized t)
-;(color-theme-solarized)
+;;to use emacs full screen uncomment this below
+;(set-frame-parameter nil 'fullscreen 'fullboth)
