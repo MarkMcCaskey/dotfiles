@@ -89,7 +89,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+    ("f15a7ce08b9e13553c1f230678e9ceb5b372f8da26c9fb815eb20df3492253b7" "8f1cedf54f137f71382e3367e1843d10e173add99abe3a5f7d3285f5cc18f1a9" "7b7ef508f9241c01edaaff3e0d6f03588a6f4fddb1407a995a7a333b29e327b5" "a0fdc9976885513b03b000b57ddde04621d94c3a08f3042d1f6e2dbc336d25c7" "e3c90203acbde2cf8016c6ba3f9c5300c97ddc63fcb78d84ca0a144d402eedc6" "2a86b339554590eb681ecf866b64ce4814d58e6d093966b1bf5a184acf78874d" "c537bf460334a1eca099e05a662699415f3971b438972bed499c5efeb821086b" "8022cea21aa4daca569aee5c1b875fbb3f3248a5debc6fc8cf5833f2936fbb22" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(inhibit-startup-screen t)
  '(package-archives
    (quote
@@ -152,3 +152,8 @@
 
 ;;to use emacs full screen uncomment this below
 ;(set-frame-parameter nil 'fullscreen 'fullboth)
+
+(setq inferior-lisp-program "/usr/local/bin/sbcl --dynamic-space-size 1500")
+(require 'slime-autoloads)
+(require 'slime)
+(slime-setup '(slime-fancy slime-repl slime-sbcl-exts slime-autodoc))
