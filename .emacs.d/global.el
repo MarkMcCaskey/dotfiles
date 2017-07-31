@@ -17,7 +17,7 @@
 ;; with your file system, like with `save-buffer'.
 ;(ido-everywhere 1)
  
-(global-linum-mode 1)
+;(global-nlinum-mode 1)
 
 ;; Emacs does not highlight a matching paren by default.
 ;; `show-paren-mode' will highlight the matching paren for the one
@@ -65,9 +65,19 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("marmalade" . "http://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
-(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+;(package-install-selected-packages)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
 
 
+(use-package evil)
 (evil-mode 1)
 
 (custom-set-variables
@@ -92,35 +102,40 @@
  )
  
  
-(require 'rainbow-delimiters) 
+(use-package rainbow-delimiters) 
+;(use-package linum-relative)
 (put 'downcase-region 'disabled nil)
+(use-package nlinum)
+(global-nlinum-mode 1)
 
-(defvar my-linum-format-string "%3d")
+;(defvar my-linum-format-string "%3d")
 
-(add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
+;(add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
 
-(defun my-linum-get-format-string ()
-  (let* ((width (1+ (length (number-to-string
-                             (count-lines (point-min) (point-max))))))
-         (format (concat "%" (number-to-string width) "d")))
-    (setq my-linum-format-string format)))
+;(defun my-linum-get-format-string ()
+;  (let* ((width (1+ (length (number-to-string
+;                             (count-lines (point-min) (point-max))))))
+;         (format (concat "%" (number-to-string width) "d")))
+;    (setq my-linum-format-string format)))
 
-(defvar my-linum-current-line-number 0)
+;(defvar my-linum-current-line-number 0)
 
-(setq linum-format 'my-linum-relative-line-numbers)
+;(setq linum-format 'my-linum-relative-line-numbers)
 
-(defun my-linum-relative-line-numbers (line-number)
-  (let ((offset (- line-number my-linum-current-line-number)))
-    (propertize (format my-linum-format-string offset) 'face 'linum)))
+;(defun my-linum-relative-line-numbers (line-number)
+;  (let ((offset (- line-number my-linum-current-line-number)))
+;    (propertize (format my-linum-format-string offset) 'face 'linum)))
 
-(defadvice linum-update (around my-linum-update)
-  (let ((my-linum-current-line-number (line-number-at-pos)))
-    ad-do-it))
-(ad-activate 'linum-update)
+;(defadvice linum-update (around my-linum-update)
+;  (let ((my-linum-current-line-number (line-number-at-pos)))
+;    ad-do-it))
+;(ad-activate 'linum-update)
 
-(require 'linum-relative)
-(linum-mode 1)
+;(linum-mode 1)
 
 (load-theme 'tango-dark t)
+
+(use-package nyan-mode)
 (nyan-mode 1)
-(require 'company)
+
+(use-package company)

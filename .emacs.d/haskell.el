@@ -1,9 +1,6 @@
-
- 
-
-(require 'company)
-(require 'company-ghc)
-
+(use-package company)
+(use-package company-ghc)
+(use-package haskell-mode)
 
 (defun haskell-mode-setup ()
   (define-key (current-local-map) (kbd "TAB") 'company-indent-or-complete-common))
@@ -18,11 +15,11 @@
 (add-to-list 'exec-path "~/.local/bin")
 (add-to-list 'load-path "~/.cabal/share/x86_64-linux-ghc-7.10.3/ghc-mod-5.5.0.0/elisp")
 (add-to-list 'load-path "/home/mark/Documents/etc/structured-haskell-mode/elisp")
-(require 'shm)
+(use-package shm)
 
 (custom-set-variables '(haskell-tags-on-save t))
 
-(require 'ghc)
+(use-package ghc)
 
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
@@ -35,7 +32,7 @@
 (add-hook 'haskell-mode-hook 'haskell-mode-setup)
 (add-hook 'haskell-mode-hook 'company-mode)
 
-(require 'flycheck)
+(use-package flycheck)
 
 
 

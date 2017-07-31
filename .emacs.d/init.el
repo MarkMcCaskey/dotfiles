@@ -10,6 +10,8 @@
   "Load file in user's configuration directory"
   (load-file (expand-file-name file user-init-dir)))
 
+
+;; Global must be loaded first
 (load-user-file "global.el")
 (load-user-file "c.el")
 (load-user-file "commonlisp.el")
@@ -19,8 +21,7 @@
 (load-user-file "org.el")
 (load-user-file "zone.el")
 
-
-(require 'command-log-mode)
+(use-package command-log-mode)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

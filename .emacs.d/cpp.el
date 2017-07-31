@@ -1,9 +1,11 @@
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 (setq company-backends (delete 'company-semantic company-backends))
 
-(require 'company)
+(use-package company)
+(use-package company-irony-c-headers)
+(use-package flycheck)
+
 (add-hook 'after-init-hook 'global-company-mode)
-(require 'company-irony-c-headers)
 (eval-after-load 'company
   '(add-to-list
     'company-backends '(company-irony-c-headers company-irony)))
@@ -18,7 +20,6 @@
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
-(require 'cmake-ide)
-
+(use-package cmake-ide)
 (cmake-ide-setup)
 

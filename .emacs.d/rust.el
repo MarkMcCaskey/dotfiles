@@ -1,8 +1,13 @@
 ;; MELPA dependencies - racer, company, cargo, rustfmt, rust-mode
  
 ;; Setup racer-rust
+(use-package racer)
+(use-package rust-mode)
+(use-package autopair)
+(use-package company)
+
 (setq
-racer-rust-src-path "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
+ racer-rust-src-path "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
  
 ;; Make it so that saving files while in Rust-mode
 ;; applies rustfmt and C-c C-c compiles/tests the code
@@ -14,13 +19,13 @@ racer-rust-src-path "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/r
   (add-hook 'before-save-hook 'rust-format-buffer))
 (add-hook 'rust-mode-hook 'rust-mode-setup)
 (add-hook 'rust-mode-hook #'racer-mode)
-(add-hook 'rust-mode-hook #'eldoc-mode)
+;(add-hook 'rust-mode-hook #'eldoc-mode)
 (add-hook 'rust-mode-hook #'autopair-mode)
-(add-hook 'racer-mode-hook #'eldoc-mode)
+;(add-hook 'racer-mode-hook #'eldoc-mode)
 (add-hook 'racer-mode-hook #'company-mode)
 ;(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
  
 ;; Configure company
 (setq company-tooltip-align-annotations t)
 (setq company-idle-delay 1)
-(setq company-minimum-prefix-length 1)
+(setq company-minimum-prefix-length 2)

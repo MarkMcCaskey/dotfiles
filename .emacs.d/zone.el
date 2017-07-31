@@ -1,3 +1,4 @@
+(use-package zone)
 (setq zone-programs [
 		     ;; zone-pgm-jitter
 		     zone-pgm-putz-with-case
