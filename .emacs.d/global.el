@@ -138,4 +138,53 @@
 (use-package nyan-mode)
 (nyan-mode 1)
 
-(use-package company)
+(define-key prog-mode-map (kbd "C-c h m") 'helm-projectile)
+
+(use-package wgrep-ag)
+(use-package rg)
+(rg-enable-default-bindings (kbd "C-M-s"))
+(add-hook 'rg-mode-hook 'wgrep-ag-setup)
+
+(setq gc-cons-threshold (* 1024 1024 1024))
+(run-with-idle-timer 28 t (lambda () (garbage-collect)))
+
+(use-package evil-lispy)
+(add-hook 'emacs-lisp-mode-hook #'evil-lispy-mode)
+
+
+;; (defun safely-index (idx xs)
+;;   "no point in falling off the end, just go to the last existing window"
+;;   (elt xs (min (- (length xs) 1) idx)))
+
+;; (defun ->window (idx)
+;;   (lexical-let ((idx idx))
+;;     (lambda () (interactive) (aw-switch-to-window (safely-index idx (aw-window-list))))))
+
+;; (global-set-key (kbd "s-'") (->window 0))
+;; (global-set-key (kbd "s-,") (->window 1))
+;; (global-set-key (kbd "s-.") (->window 2))
+;; (global-set-key (kbd "s-p") (->window 3))
+
+;; Because I make this mistake too often
+;; C-w C-<x> = C-w <x>
+(define-key evil-window-map "C-l" 'evil-window-right)
+(define-key evil-window-map "C-h" 'evil-window-left)
+(define-key evil-window-map "C-j" 'evil-window-down)
+(define-key evil-window-map "C-k" 'evil-window-up)
+
+(use-package ivy)
+(setq projectile-completion-system 'ivy)
+(use-package counsel)
+
+(use-package command-log-mode)
+
+(setq avy-keys '(?a ?o ?e ?u ?i ?h ?t ?n ?s))
+
+
+(use-package magit)
+(global-set-key (kbd "C-x g") 'magit-status)
+(setq projectile-enable-caching t)
+(setq projectile-projects-cache (make-hash-table :test 'equal))
+
+;; TODO: make this conditional based on emacs resolution or hack it based on OS
+(set-face-attribute 'default nil :height 120)
